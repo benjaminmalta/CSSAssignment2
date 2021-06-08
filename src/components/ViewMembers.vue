@@ -25,7 +25,7 @@
     </table>
     </div>
     <div class="column is-1">
-      <button class="button is-link" @click="$router.go(-1)" >Back </button>
+      <button class="button is-link" @click="$router.push('/home')" >Back </button>
     </div>
   </div>
 </template>

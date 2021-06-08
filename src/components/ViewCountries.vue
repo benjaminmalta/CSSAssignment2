@@ -18,7 +18,7 @@
     </table>
 </div>
 <div class="column">
-<button class="button is-link" @click="$router.go(-1)" >Back to Home</button>
+<button class="button is-link" @click="$router.push('/home')" >Back to Home</button>
 </div>
 </div>
 </template>
