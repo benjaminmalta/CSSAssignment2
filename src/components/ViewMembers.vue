@@ -8,14 +8,16 @@
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Email</th>
+                <th>Mobile</th>
                 <th>isAdmin</th>
                 <th></th>
             </tr>
             <tr v-for="(user, index) in allUserData" :key="user" class="country-list">
                 <td>{{index+1}}</td>
-                <td>{{user.userDetails.name}}</td>
-                <td>{{user.userDetails.surname}}</td>
+                <td>{{uppercase(user.userDetails.name)}}</td>
+                <td>{{uppercase(user.userDetails.surname)}}</td>
                 <td>{{user.userDetails.email}}</td>
+                <td>{{mobile(user.userDetails.mobileNumber)}}</td>
                 <td>{{user.userDetails.isAdmin}}</td>
                 <td><button class="button is-link" @click="$router.push({name: 'EditMember', params: {index: this.allUsersUid[index]}} )">Change</button></td>
             </tr>
@@ -40,7 +42,17 @@ export default {
   created () {
     this.retrieveDataFromFirebase()
   },
+  computed () {
+    return {
+    }
+  },
   methods: {
+    mobile (mobile) {
+      return ('+365 ' + mobile)
+    },
+    uppercase (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1)
+    },
     retrieveDataFromFirebase () {
       var userPrefs = firebase.database().ref('/')
       userPrefs.once('value', (snapshot) => {
