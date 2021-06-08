@@ -1,9 +1,16 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div id="app">
+    <navbar />
+    <section class="section">
+      <div class="container is-desktop">
+        <router-view v-slot="{ Component }">
+          <transition name="slide-fade" mode="out-in">
+            <component :is="Component" />
+          </transition>
+        </router-view>
+      </div>
+    </section>
   </div>
-  <router-view/>
 </template>
 
 <style>
@@ -14,17 +21,41 @@
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
+.slide-fade-leave-to {
+  transform: translateX(10px);
+  opacity: 0;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.slide-fade-enter-from{
+  transform: translateX(-10px);
+  opacity: 0;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.5s ease;
 }
 </style>
+
+<script>
+import Navbar from './components/Navbar.vue'
+import { mapActions, mapGetters } from 'vuex'
+
+export default {
+  components: { Navbar },
+  data () {
+    return {
+      kaas: true
+    }
+  },
+  mounted () {
+    this.authAction()
+  },
+  computed: {
+    ...mapGetters(['getUser', 'isUserAuth'])
+
+  },
+  methods: {
+    ...mapActions(['authAction'])
+  }
+}
+</script>
